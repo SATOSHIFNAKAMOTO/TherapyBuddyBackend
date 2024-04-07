@@ -63,12 +63,9 @@ def get_moods():
     conn.close()
     return jsonify(moods_list)
 
-
-if __name__ == '__main__':
-    init_db()
-    app.run(debug=True)
-
-if __name__ == '__main__':
-    init_db()
-    port = int(os.environ.get('PORT', 5000))  # Get port from environment, default to 5000
-    app.run(host='0.0.0.0', port=port, debug=True)  # Bind to all interfaces
+if __name__ == "__main__":
+    # Get the PORT environment variable (default to 5000 if not set)
+    port = int(os.environ.get('PORT', 5000))
+    
+    # Run the Flask app on the specified port
+    app.run(host='0.0.0.0', port=port)
