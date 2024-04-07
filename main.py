@@ -1,14 +1,27 @@
+from flask import Flask, request, jsonify
 import os
 import openai
 
-# Function to initialize OpenAI client
-def initialize_openai_client():
-    openai_api_key = os.getenv("OPENAI_API_KEY")
-    if not openai_api_key:
-        raise ValueError("OPENAI_API_KEY environment variable not found.")
-    return openai.OpenAI(api_key=openai_api_key)
+app = Flask(__name__)
 
-# Function to get response from OpenAI based on user input
+# Initialize OpenAI client
+openai_api_key = os.getenv("OPENAI_API_KEY")
+if not openai_api_key:
+    raise ValueError("OPENAI_API_KEY environment variable not found.")
+openai_client = openai.OpenAI(api_key=openai_api_key)
+
+# Endpoint for chatting with OpenAI
+@app.route('/chat', methods=['POST'])
+def chat():
+    data = request.json
+    user_input = data.get('input')
+    conversation_history = data.get('history', [])
+    
+    response_message, updated_history = get_openai_response(openai_client, user_input, conversation_history)
+    
+    return jsonify({'response': response_message, 'history': updated_history})
+
+# Function to get response from OpenAI
 def get_openai_response(client, user_input, conversation_history):
     try:
         chat_completion = client.chat.completions.create(
@@ -23,17 +36,6 @@ def get_openai_response(client, user_input, conversation_history):
     
     return response_message, conversation_history
 
-# Main function to drive the chat
-def main():
-    client = initialize_openai_client()
-    conversation_history = []
-    while True:
-        user_input = input("You: ")
-        if user_input.lower() == "exit":
-            print("Exiting the chat.")
-            break
-        response, conversation_history = get_openai_response(client, user_input, conversation_history)
-        print(f"AI: {response}")
-
+# Run the Flask app
 if __name__ == "__main__":
-    main()
+    app.run(port=9090)
