@@ -1,0 +1,50 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* light blue */
+    color: #005f73; /* darker blue */
+    text-align: center;
+    padding: 50px;
+}
+
+.container {
+    background-color: #e0f2fe; /* very light blue */
+    border-radius: 10px;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+    box-shadow: 0px 0px 10px 0px #00000033;
+}
+
+h1 {
+    color: #006d77; /* calming blue */
+}
+
+p {
+    color: #003d5b; /* deep blue */
+}
+
+#emoji-container {
+    padding: 20px;
+}
+
+.emoji-button {
+    font-size: 2em;
+    border: none
+
+
+#message-container {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#message-container.success {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+#message-container.error {
+    background-color: #f8d7da;
+    color: #721c24;
+}
