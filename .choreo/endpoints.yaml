@@ -1,0 +1,7 @@
+version: 0.1
+endpoints:
+  - name: chatbot 
+    port: 9090 
+    type: REST 
+    networkVisibility: Public
+    context: /
