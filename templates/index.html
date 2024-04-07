@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mood Tracker</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- Ensure the path to the CSS file is correct -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
 </head>
 <body>
     <div class="container">
@@ -14,27 +15,21 @@
         </header>
         <main>
             <div id="emoji-container">
-                <button class="emoji-button" data-mood="happy">
-                    <span role="img" aria-label="Happy Face">😊</span>
-                </button>
-                <button class="emoji-button" data-mood="sad">
-                    <span role="img" aria-label="Sad Face">😔</span>
-                </button>
-                <button class="emoji-button" data-mood="excited">
-                    <span role="img" aria-label="Excited Face">😄</span>
-                </button>
-                <button class="emoji-button" data-mood="angry">
-                    <span role="img" aria-label="Angry Face">😠</span>
-                </button>
-                <button class="emoji-button" data-mood="calm">
-                    <span role="img" aria-label="Calm Face">😌</span>
-                </button>
+                <!-- Your emoji buttons -->
+                <button class="emoji-button" data-mood="happy">😊</button>
+                <button class="emoji-button" data-mood="sad">😔</button>
+                <button class="emoji-button" data-mood="excited">😄</button>
+                <button class="emoji-button" data-mood="angry">😠</button>
+                <button class="emoji-button" data-mood="calm">😌</button>
             </div>
+            <!-- This is the new div where the moods will be listed -->
+            <div id="mood-list"></div>
         </main>
         <footer>
             <p>&copy; 2023 Mood Tracker. All rights reserved.</p>
         </footer>
     </div>
+    <!-- Ensure the path to the JavaScript file is correct -->
     <script src="{{ url_for('static', filename='js/mood.js') }}"></script>
 </body>
 </html>

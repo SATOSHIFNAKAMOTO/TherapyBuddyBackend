@@ -48,6 +48,22 @@ def submit_mood():
     else:
         return jsonify({'status': 'error', 'message': 'Mood not provided'}), 400
 
+@app.route('/get_moods', methods=['GET'])
+def get_moods():
+    conn = sqlite3.connect(DATABASE)
+    conn.row_factory = sqlite3.Row  # This enables column access by name: row['column_name']
+    cursor = conn.cursor()
+
+    cursor.execute('SELECT * FROM moods ORDER BY timestamp DESC')
+    moods = cursor.fetchall()
+
+    # Convert the response to a list of dicts, which can be easily turned into JSON
+    moods_list = [dict(row) for row in moods]
+
+    conn.close()
+    return jsonify(moods_list)
+
+
 if __name__ == '__main__':
     init_db()
     app.run(debug=True)

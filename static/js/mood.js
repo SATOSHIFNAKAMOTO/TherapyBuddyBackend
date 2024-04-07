@@ -1,11 +1,11 @@
 // mood.js file
 document.addEventListener('DOMContentLoaded', function () {
     const moodButtons = document.querySelectorAll('.emoji-button');
-  
+
     moodButtons.forEach(button => {
         button.addEventListener('click', function () {
-            const mood = this.dataset.mood;  // 'data-mood' attribute value of clicked button
-  
+            const mood = this.dataset.mood; 
+
             fetch('/submit_mood', {
                 method: 'POST',
                 headers: {
@@ -20,12 +20,33 @@ document.addEventListener('DOMContentLoaded', function () {
                 return response.json();
             })
             .then(data => {
-                console.log(data); // For debugging: log the data received from server
-                alert('Your mood has been recorded: ' + mood);  // Alert or modify the DOM as required
+                console.log(data); 
+                alert('Your mood has been recorded: ' + mood); 
+                updateMoodList(); // Refresh the display with the new entry
             })
             .catch((error) => {
                 console.error('There has been a problem with your fetch operation:', error);
             });
         });
     });
+
+    function updateMoodList() {
+        fetch('/get_moods')
+            .then(response => response.json())
+            .then(data => {
+                const moodList = document.getElementById('mood-list');
+                moodList.innerHTML = ''; 
+
+                data.forEach(moodEntry => {
+                    const moodItem = document.createElement('div');
+                    moodItem.textContent = `Mood: ${moodEntry.mood}, Recorded at: ${moodEntry.timestamp}`;
+                    moodList.appendChild(moodItem);
+                });
+            })
+            .catch((error) => {
+                console.error('Error fetching moods:', error);
+            });
+    }
+
+    updateMoodList(); // Retrieve and display moods on initial page load
 });
